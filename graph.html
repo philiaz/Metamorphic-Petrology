@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Insert Title</title>
+    <link href="https://www.science.smith.edu/~jbrady/petrology/stylesheets/jquery-ui.min.css" rel="stylesheet"
+        type="text/css">
+    <link href="https://www.science.smith.edu/~jbrady/petrology/stylesheets/petroStyle.css" rel="stylesheet"
+        type="text/css">
+    <script src="https://www.science.smith.edu/~jbrady/petrology/scripts/jquery-1.11.1.min.js"></script>
+    <script src="https://www.science.smith.edu/~jbrady/petrology/scripts/jquery-ui.min.js"></script>
+    <script src="https://www.science.smith.edu/~jbrady/petrology/scripts/petrosScript.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.min.js "></script>
+    <style>
+        .ui-slider .ui-slider-handle {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div id="headbutts">
+            <button id="coordsBut" style="float:right" class="showCoords">Show Coordinates</button>
+        </div>
+    </div>
+    <div id=wrapperFig>
+        <div id="wideFigured3" class="figurePage" style="background-color:#000000">
+            <div class="wideImage" style="background-color:#ffffff; width: 900px; height: 800px" )>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 800"
+                    style="position: absolute; top: 0; left: 0;">
+                    <defs>
+                        <style>
+                            .cls-1,
+                            .cls-5,
+                            .cls-6 {
+                                fill: #fff;
+                            }
+
+                            .cls-2 {
+                                opacity: 0.8;
+                            }
+
+                            .cls-11,
+                            .cls-4,
+                            .cls-7,
+                            .cls-8 {
+                                fill: none;
+                            }
+
+                            .cls-11,
+                            .cls-4,
+                            .cls-5,
+                            .cls-6,
+                            .cls-7,
+                            .cls-8 {
+                                stroke: #000;
+                                stroke-miterlimit: 10;
+                            }
+
+                            .cls-7,
+                            .cls-8 {
+                                stroke-width: 0.5px;
+                            }
+
+                            .cls-8 {
+                                stroke-dasharray: 6 6;
+                            }
+
+                            .cls-9 {
+                                font-size: 21px;
+                            }
+
+                            .cls-12,
+                            .cls-9 {
+                                font-family: Arial-BoldMT, Arial;
+                                font-weight: 700;
+                            }
+
+                            .cls-10 {
+                                letter-spacing: -0.07em;
+                            }
+
+                            .cls-11 {
+                                stroke-width: 1.39px;
+                            }
+
+                            .cls-12 {
+                                font-size: 18px;
+                            }
+
+                            .cls-13 {
+                                letter-spacing: -0.06em;
+                            }
+                        </style>
+                    </defs>
+                    <g id="Layer_1" data-name="Layer 1">
+                        <rect id="Bkgnd" class="cls-1" width="900" height="500" />
+                        <image id="BgImage" class="cls-2" href="faciesbackground.png" x="75" y="50" width="600" height="600" />
+                        <rect id="Outline" class="cls-4" x="75" y="50" width="600" height="600" />
+                    </g>
+                    <g id="Layer_2" data-name="Layer 2">
+                        <text class="cls-9" transform="translate(24.28 420) rotate(-90)">
+                            <tspan class="cls-10">P</tspan>
+                            <tspan x="11.27" y="0">ressure (GPa)</tspan>
+                        </text>
+                        <text class="cls-9" transform="translate(290 695)">Temperature (°C)</text>
+                        <g id="x-vals">
+                            <text class="cls-12" transform="translate(70 670)">0</text>
+                            <text class="cls-12" transform="translate(175 670)">200</text>
+                            <text class="cls-12" transform="translate(295 670)">400</text>
+                            <text class="cls-12" transform="translate(415 670)">600</text>
+                            <text class="cls-12" transform="translate(539 670)">800</text>
+                            <text class="cls-12" transform="translate(650 670)">1000</text>
+                        </g>
+                        <g id="T-vals">
+                            <text class="cls-12" transform="translate(40.81 55)">1.5</text>
+                            <text class="cls-12" transform="translate(40.81 175)">1.2</text>
+                            <text class="cls-12" transform="translate(40.81 297)">0.9</text>
+                            <text class="cls-12" transform="translate(40.81 417)">0.6</text>
+                            <text class="cls-12" transform="translate(40.81 537)">0.3</text>
+                            <text class="cls-12" transform="translate(40.81 654)">0.0</text>
+                        </g>
+                    </g>
+
+                    <polyline id="T-line" fill="none" stroke="red" stroke-width="2.4" points="" />
+
+                    </polyline>
+                </svg>
+                <div id="panel" style="position:absolute; z-index:7; top:0px; left:700px; width:200px; height:800px;">
+
+                    <form id=normIn autocomplete="off">
+                        <div class="chemInput"> <!-- wrapper for analysis slider and boxes input -->
+                            <div class="column">
+
+                                <br><br>
+                                <span class="oxideLabel"><strong>Fig. 01. Metamorphic Facies Diagram</strong></span>
+                                <br><br>
+                                <span class="oxideLabel"> Age (Myr)</span><br>
+
+                                <input type="number" id="age_number" step="10" size="5" value="0" style="width:50px;">
+                                <span class="normSlider" style="margin-top:6px; width:80px; height:30px;">
+                                    <input type="range" min="0" max="1" step="0.01" style="width:80px;" id="age_slider"
+                                        value="0">
+                                </span>
+                                <br>
+
+                                <input type="radio" id="conductive" name="q0_type" value="CONDUCTIVE" checked="checked" onchange="q0RadioChange(this)">
+                                <label for="conductive">Q<sub>0</sub> conductive only</label><br>
+                                <input type="radio" id="hydrothermal" name="q0_type" value="HYDROTHERMAL" onchange="q0RadioChange(this)">
+                                <label for="hydrothermal">Q<sub>0</sub> incl. hydrothermal</label><br>
+                                <br>
+
+                                <span class="oxideLabel"> Shear Heating (Mpa)</span><br>
+                                <input type="radio" id="constant" name="shear_type" value="CONSTANT" checked="checked" onchange="shearHeatingRadioChange(this)">
+                                <label for="constant"> = Constant τ</label><br>
+                                <input type="radio" id="linear" name="shear_type" value="LINEAR" onchange="shearHeatingRadioChange(this)">
+                                <label for="linear"> = Linear (y * Pressure)</label><br>
+                                <div id="shear_heating_wrapper_constant">
+                                    <input type="number" id="t_number" step="10" size="5" value="1100" style="width:50px;">
+                                    <span class="normSlider" style="margin-top:6px; width:80px; height:30px;">
+                                        <input type="range" min="0" max="1" step="0.01" style="width:80px;" id="t_slider"
+                                            value="0">
+                                    </span>
+                                </div>
+                                <div id="shear_heating_wrapper_linear" style="display: none">
+                                    <input type="number" id="y_number" step="10" size="5" value="1100" style="width:50px;">
+                                    <span class="normSlider" style="margin-top:6px; width:80px; height:30px;">
+                                        <input type="range" min="0" max="1" step="0.01" style="width:80px;" id="y_slider"
+                                            value="0">
+                                    </span>
+                                </div>
+                                <br>
+
+                                <span class="oxideLabel"> Convergence Rate (mm/year)</span>
+                                <br>
+                                <input type="number" id="v_number" step="10" size="5" value="0" style="width:50px;">
+                                <span class="normSlider" style="margin-top:6px; width:80px; height:30px;">
+                                    <input type="range" min="0" max="1" step="0.01" style="width:80px;" id="v_slider"
+                                        value="0">
+                                </span>
+                                <br>
+
+                                <span class="oxideLabel">Dip of Interface (degrees)</span>
+                                <br>
+                                <input type="number" id="delta_number" step="10" size="5" value="400" style="width:50px;">
+                                <span class="normSlider" style="margin-top:6px; width:80px; height:30px;">
+                                    <input type="range" min="0" max="1" step="0.01" style="width:80px;"
+                                        id="delta_slider" value="0">
+                                </span>
+                                <br>
+                                <br><br>
+                                <br><br>
+                                <span id="coordView" class="coordTip" hidden>
+                                    <p id="xAxis"> Distance: </p>
+                                    <p id="yAxis"> Temperature: </p>
+                                </span>
+                            </div> <!-- End column div -->
+                    </form>
+                </div> <!-- End panel div -->
+
+                <!--------------------------------------------------------------------->
+            </div> <!-- End wideImage div -->
+            <!--------------------------------------------------------------------->
+            <div class="coords" id="invisible"
+                style="position:absolute; left:75px; top:50px; width:600px; height:600px;">
+                <!-- Set the width and height of the canvas here to ensure that the Model and Display coordinate
+systems for the canvas match.  They should be the same as the invisible404L container div.  The
+invisible404L dimensions and location were determined by trial and error using javascrip, mouse, 
+click function, and alerts.  -->
+                <canvas class="figureCan" id="canvasDike" width="600" height="600" hidden>Sorry, your browser does not
+                    support HTML5</canvas>
+            </div>
+        </div>
+        <div class="text" style="background-color:#ffdeca">
+            <span class="smallTitle">Description</span><br>
+            <p>
+                You are looking at a graph.
+                vitae orci ullamcorper, non vehicula sem porta. Maecenas volutpat leo vel varius suscipit. Curabitur
+                sed massa sapien. Sed at metus vel lectus accumsan commodo id et nibh. Ut eleifend ac turpis eu dapibus.
+                Nunc dignissim arcu sit amet consectetur condimentum. Ut porta scelerisque urna aliquam gravida.
+                Morbi blandit urna sagittis, suscipit sem suscipit, euismod velit. Donec hendrerit in
+                neque vel pretium. Vestibulum cursus odio ex. Sed porttitor ex in nunc rhoncus aliquam ut
+                eget orci. Etiam sit amet elementum lacus. Phasellus lacinia libero sed risus mattis eleifend.
+                Donec vehicula sagittis leo, sed facilisis nunc porta et.
+                <br><br>
+                Donec molestie mi lectus, et condimentum massa pellentesque dapibus. Vivamus placerat elementum
+                scelerisque.
+                Mauris justo nisl, aliquet ac porta in, luctus id felis. Cras interdum, justo a scelerisque pharetra,
+                dolor erat lobortis lacus, at maximus est lacus ac dolor. Nulla tellus nisi, malesuada ut lectus at,
+                consectetur viverra risus. Etiam tempor nulla quis augue tempor, ut hendrerit elit sagittis.
+                Vivamus consequat magna sed leo pellentesque, nec eleifend ligula rutrum. Vivamus ligula nulla,
+                molestie vel ornare dignissim, pellentesque sit amet odio. Duis auctor interdum velit et placerat.
+                Quisque laoreet magna et consectetur elementum.
+                <br><br>
+                &nbsp;
+            </p>
+        </div>
+    </div>
+    <script src="model.js"></script>
+
+</html>
